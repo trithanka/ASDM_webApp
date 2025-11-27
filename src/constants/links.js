@@ -40,7 +40,7 @@ export const SOCIAL_LINKS = [
 export const MENU_ITEMS = [
   { label: 'Course', url: '/course/', type: 'course', icon: 'school-outline' },
   { label: 'Scheme', url: '/course/scheme/', type: 'internal', icon: 'star-outline' },
-  { label: 'Job Board', url: '/job-board/', type: 'internal', icon: 'clipboard-text-outline' },
+  { label: 'Job Board', url: '/jobboard/', type: 'internal', icon: 'clipboard-text-outline' },
   { label: 'Job Mela', url: JOBMELA_URL, type: 'jobmela', icon: 'briefcase-outline' },
   { label: 'More', url: null, type: 'externalModal', icon: 'menu' },
 ];

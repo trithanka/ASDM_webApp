@@ -93,6 +93,14 @@ export default function AppRoot() {
     return false;
   };
 
+  const loadUrl = targetUrl => {
+    const timestamp = Date.now();
+    const separator = targetUrl.includes('?') ? '&' : '?';
+    const versionedUrl = `${targetUrl}${separator}v=${timestamp}`;
+    setCurrentUrl(versionedUrl);
+    setActualUrl(targetUrl);
+  };
+
   const handleMenuPress = item => {
     if (item.type === 'externalModal') {
       setShowExternalModal(true);
@@ -101,22 +109,19 @@ export default function AppRoot() {
 
     if (item.type === 'course') {
       const courseUrl = BASE_URL + item.url;
-      setCurrentUrl(courseUrl);
-      setActualUrl(courseUrl);
+      loadUrl(courseUrl);
       showToast('Loading course content...');
       return;
     }
 
     if (item.type === 'jobmela') {
-      setCurrentUrl(item.url);
-      setActualUrl(item.url);
+      loadUrl(item.url);
       showToast('Opening Job Mela...');
       return;
     }
 
     const fullUrl = BASE_URL + item.url;
-    setCurrentUrl(fullUrl);
-    setActualUrl(fullUrl);
+    loadUrl(fullUrl);
     showToast(`Opening ${item.label}...`);
   };
 
@@ -162,12 +167,18 @@ export default function AppRoot() {
     return (
       <View style={styles.webContainer}>
         <View style={styles.iframeWrapper}>
-          <iframe title="Skill Mission Assam Course" src={currentUrl} style={iframeStyles} allow="fullscreen" />
+          <iframe
+            key={currentUrl}
+            title="Skill Mission Assam Course"
+            src={currentUrl}
+            style={iframeStyles}
+            allow="fullscreen"
+          />
         </View>
         <MenuBar
           items={MENU_ITEMS}
           isMenuItemActive={isMenuItemActive}
-          activeUrl={currentUrl}
+          activeUrl={actualUrl}
           onItemPress={handleMenuPress}
           disabled={showExternalModal}
         />
@@ -204,7 +215,8 @@ export default function AppRoot() {
         onNavigationStateChange={navState => {
           setCanGoBack(navState.canGoBack);
           if (navState.url) {
-            setActualUrl(navState.url);
+            const sanitizedUrl = navState.url.split('?')[0];
+            setActualUrl(sanitizedUrl);
           }
         }}
         style={styles.webView}
