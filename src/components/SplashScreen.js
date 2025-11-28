@@ -1,12 +1,12 @@
-import { SafeAreaView, Image, View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, Image, View, Text, StyleSheet, Platform } from 'react-native';
 
 export default function SplashScreen() {
   return (
     <SafeAreaView style={styles.splashContainer}>
-      <Image source={require('../../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+      <Image source={require('../../assets/logo-sm.png')} style={styles.logo} resizeMode="contain" />
       <View style={styles.textContainer}>
         <View style={styles.horizontalLine} />
-        <Text style={styles.prativaText}>PRATIVA</Text>
+        <Text style={styles.prativaText}>ASDM PRATIVA</Text>
       </View>
     </SafeAreaView>
   );
@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+    width: 100,
+    height: 100,
+    // marginBottom: 8,
   },
   textContainer: {
     alignItems: 'center',
@@ -35,10 +35,11 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   prativaText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#4a9eff',
+    fontSize: 32,
+    fontWeight: '700',
+    color: '#009966',
     letterSpacing: 0.5,
+    fontFamily: 'Lexend Giga, sans-serif',
   },
 });
 

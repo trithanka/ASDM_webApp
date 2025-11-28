@@ -69,6 +69,28 @@ export default function AppRoot() {
     toastTimeoutRef.current = setTimeout(() => setToast(prev => ({ ...prev, visible: false })), 2000);
   };
 
+  const isRootMenuUrl = urlValue => {
+    if (!urlValue) {
+      return false;
+    }
+    // Remove query parameters for comparison
+    const cleanUrl = urlValue.split('?')[0].replace(/\/$/, ''); // Remove trailing slash
+    
+    // Check if URL matches any root menu URL exactly
+    return MENU_ITEMS.some(item => {
+      if (item.type === 'externalModal') {
+        return false;
+      }
+      let rootUrl;
+      if (item.type === 'jobmela') {
+        rootUrl = item.url.replace(/\/$/, '');
+      } else {
+        rootUrl = (BASE_URL + item.url).replace(/\/$/, '');
+      }
+      return cleanUrl === rootUrl;
+    });
+  };
+
   const isMenuItemActive = (item, urlValue) => {
     if (!urlValue) {
       return false;
@@ -197,9 +219,9 @@ export default function AppRoot() {
             onClose={() => setShowExternalModal(false)}
           />
         )}
-        {!currentUrl || currentUrl === INITIAL_URL ? (
+        {isRootMenuUrl(currentUrl) && (
           <SocialWidget links={SOCIAL_LINKS} onPress={handleSocialPress} />
-        ) : null}
+        )}
         <ToastMessage visible={toast.visible} message={toast.message} />
       </View>
     );
@@ -246,7 +268,7 @@ export default function AppRoot() {
         />
       )}
 
-      {actualUrl === INITIAL_URL && (
+      {isRootMenuUrl(actualUrl) && (
         <SocialWidget links={SOCIAL_LINKS} onPress={handleSocialPress} />
       )}
       <ToastMessage visible={toast.visible} message={toast.message} />

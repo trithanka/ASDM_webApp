@@ -6,35 +6,37 @@ export const EXTERNAL_EMP_EXCHANGE_URL =
 export const ACTIVE_COLOR = 'rgba(52, 211, 153, 0.8)';
 
 export const EXTERNAL_LINKS = [
-  { label: 'Emp Exchange', description: 'Current employment exchange portal', url: EXTERNAL_EMP_EXCHANGE_URL },
+  { label: 'Emp Exchange', description: 'Register to get Employment Exchange number in Assam', url: EXTERNAL_EMP_EXCHANGE_URL },
   { label: 'নিyukti', description: 'State recruitment listings', url: 'https://niyukti.assam.gov.in/' },
-  { label: 'NIIT Foundation Digital SKILLS', description: 'NIIT Foundation skill programs', url: 'https://niitfoundation.org/skilling_program/' },
-  { label: 'Microsoft Office Online Training DigiAxom (দিজিঅসম)', description: 'Digital office upskilling', url: 'https://digiaxom.azurewebsites.net/' },
   { label: 'Assam Career', description: 'Jobs and recruitment updates in Assam', url: 'https://www.assamcareer.com/' },
-  { label: 'Naukri', description: 'National job opportunities portal', url: 'https://www.naukri.com/' },
   { label: 'Advancing North East Web Portal', description: 'Career and livelihood resources for North East youth', url: 'https://www.advancingnortheast.in/' },
-  { label: 'ASDM IT MIS Portal', description: 'Assam Skill Development Mission MIS portal', url: 'https://skillmission.assam.gov.in/' },
+  { label: 'National Career Service Portal', description: 'Career and livelihood resources for North East youth', url: 'https://betacloud.ncs.gov.in/' },
+  { label: 'Naukri', description: 'National job opportunities portal', url: 'https://www.naukri.com/' },
+
+  { label: 'NIIT Foundation Digital SKILLS', description: 'NIIT Foundation skill programs', url: 'https://niitfoundation.org/skilling_program/' },
+  { label: 'Wadhani Foundation', description: 'Wadhani Foundation Employability skills', url: 'https://skilling.wadhwanifoundation.org/en/guest' },
+  { label: 'Skill India Digital Sectors', description: 'Skill India Digital Sectors', url: 'https://www.skillindiadigital.gov.in/sector/list?forCourse=true' }
 ];
 
 export const SOCIAL_LINKS = [
-  {
-    label: 'Facebook',
-    icon: 'facebook',
-    url: 'https://www.facebook.com/asdmskill/',
-    bgColor: '#1877f2',
-  },
+  // {
+  //   label: 'Facebook',
+  //   icon: 'facebook',
+  //   url: 'https://www.facebook.com/share/1AKLXgk7yV/?mibextid=wwXIfr',
+  //   bgColor: '#1877f2',
+  // },
   {
     label: 'WhatsApp',
     icon: 'whatsapp',
     url: 'https://wa.me/?text=Hello%20ASDM%20Prativa',
     bgColor: '#25D366',
   },
-  {
-    label: 'Instagram',
-    icon: 'instagram',
-    url: 'https://www.instagram.com/asdmassam/',
-    bgColor: '#E1306C',
-  },
+  // {
+  //   label: 'Instagram',
+  //   icon: 'instagram',
+  //   url: 'https://www.instagram.com/asdmassam/',
+  //   bgColor: '#E1306C',
+  // },
 ];
 
 export const MENU_ITEMS = [
