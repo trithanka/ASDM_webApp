@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Platform, BackHandler, Alert, Linking } from 'react-native';
+import { StyleSheet, View, Platform, BackHandler, Alert, Linking, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import MenuBar from './components/MenuBar';
 import ExternalLinksModal from './components/ExternalLinksModal';
@@ -9,6 +10,7 @@ import ExternalLinksSheet from './components/ExternalLinksSheet';
 import SocialWidget from './components/SocialWidget';
 import SplashScreen from './components/SplashScreen';
 import ToastMessage from './components/ToastMessage';
+import OnlineCoursePage from './components/OnlineCoursePage';
 
 import {
   BASE_URL,
@@ -16,7 +18,7 @@ import {
   EXTERNAL_LINKS,
   SOCIAL_LINKS,
   JOBMELA_URL,
-  SCHEME_URL,
+  ONLINE_COURSE_LINKS,
 } from './constants/links';
 
 const INITIAL_URL = BASE_URL + MENU_ITEMS[0].url;
@@ -26,14 +28,23 @@ export default function AppRoot() {
   const [canGoBack, setCanGoBack] = useState(false);
   const [currentUrl, setCurrentUrl] = useState(INITIAL_URL);
   const [actualUrl, setActualUrl] = useState(INITIAL_URL);
+  const [showOnlineCourse, setShowOnlineCourse] = useState(false);
   const [showExternalModal, setShowExternalModal] = useState(false);
   const [toast, setToast] = useState({ visible: false, message: '' });
   const toastTimeoutRef = useRef(null);
+  const splashTimerRef = useRef(null);
   const webViewRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 3000);
-    return () => clearTimeout(timer);
+    // Auto-hide splash screen after 3 seconds on initial load only
+    splashTimerRef.current = setTimeout(() => {
+      setShowSplash(false);
+    }, 3000);
+    return () => {
+      if (splashTimerRef.current) {
+        clearTimeout(splashTimerRef.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -78,7 +89,7 @@ export default function AppRoot() {
     
     // Check if URL matches any root menu URL exactly
     return MENU_ITEMS.some(item => {
-      if (item.type === 'externalModal') {
+      if (item.type === 'externalModal' || item.type === 'onlineCourse') {
         return false;
       }
       let rootUrl;
@@ -92,16 +103,21 @@ export default function AppRoot() {
   };
 
   const isMenuItemActive = (item, urlValue) => {
+    if (item.type === 'onlineCourse') {
+      return showOnlineCourse;
+    }
+
+    // If online course is showing, don't mark other items as active
+    if (showOnlineCourse) {
+      return false;
+    }
+
     if (!urlValue) {
       return false;
     }
 
-    if (item.label === 'Scheme') {
-      return urlValue.startsWith(SCHEME_URL);
-    }
-
     if (item.type === 'course') {
-      return urlValue.startsWith(`${BASE_URL}/course`) && !urlValue.startsWith(SCHEME_URL);
+      return urlValue.startsWith(`${BASE_URL}/course`);
     }
 
     if (item.type === 'jobmela') {
@@ -129,7 +145,13 @@ export default function AppRoot() {
       return;
     }
 
+    if (item.type === 'onlineCourse') {
+      setShowOnlineCourse(true);
+      return;
+    }
+
     if (item.type === 'course') {
+      setShowOnlineCourse(false);
       const courseUrl = BASE_URL + item.url;
       loadUrl(courseUrl);
       showToast('Loading course content...');
@@ -137,11 +159,13 @@ export default function AppRoot() {
     }
 
     if (item.type === 'jobmela') {
+      setShowOnlineCourse(false);
       loadUrl(item.url);
       showToast('Opening Job Mela...');
       return;
     }
 
+    setShowOnlineCourse(false);
     const fullUrl = BASE_URL + item.url;
     loadUrl(fullUrl);
     showToast(`Opening ${item.label}...`);
@@ -173,6 +197,30 @@ export default function AppRoot() {
     ]);
   };
 
+  const handleOnlineCourseLinkPress = link => {
+    const message = `You are being redirected to ${link.label}. Continue?`;
+
+    if (Platform.OS === 'web') {
+      const proceed = window.confirm(message);
+      if (proceed) {
+        window.open(link.url, '_blank');
+        showToast(`Opening ${link.label}...`);
+      }
+      return;
+    }
+
+    Alert.alert('External Portal', message, [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Proceed',
+        onPress: () => {
+          Linking.openURL(link.url);
+          showToast(`Opening ${link.label}...`);
+        },
+      },
+    ]);
+  };
+
   const handleSocialPress = url => {
     if (Platform.OS === 'web') {
       window.open(url, '_blank');
@@ -181,6 +229,7 @@ export default function AppRoot() {
     Linking.openURL(url);
   };
 
+
   if (showSplash) {
     return <SplashScreen />;
   }
@@ -188,15 +237,22 @@ export default function AppRoot() {
   if (Platform.OS === 'web') {
     return (
       <View style={styles.webContainer}>
-        <View style={styles.iframeWrapper}>
-          <iframe
-            key={currentUrl}
-            title="Skill Mission Assam Course"
-            src={currentUrl}
-            style={iframeStyles}
-            allow="fullscreen"
+        {showOnlineCourse ? (
+          <OnlineCoursePage 
+            links={ONLINE_COURSE_LINKS} 
+            onLinkPress={handleOnlineCourseLinkPress}
           />
-        </View>
+        ) : (
+          <View style={styles.iframeWrapper}>
+            <iframe
+              key={currentUrl}
+              title="Skill Mission Assam Course"
+              src={currentUrl}
+              style={iframeStyles}
+              allow="fullscreen"
+            />
+          </View>
+        )}
         <MenuBar
           items={MENU_ITEMS}
           isMenuItemActive={isMenuItemActive}
@@ -219,7 +275,7 @@ export default function AppRoot() {
             onClose={() => setShowExternalModal(false)}
           />
         )}
-        {isRootMenuUrl(currentUrl) && (
+        {isRootMenuUrl(currentUrl) && !showOnlineCourse && (
           <SocialWidget links={SOCIAL_LINKS} onPress={handleSocialPress} />
         )}
         <ToastMessage visible={toast.visible} message={toast.message} />
@@ -229,20 +285,27 @@ export default function AppRoot() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <WebView
-        key={currentUrl}
-        ref={webViewRef}
-        source={{ uri: currentUrl }}
-        startInLoadingState
-        onNavigationStateChange={navState => {
-          setCanGoBack(navState.canGoBack);
-          if (navState.url) {
-            const sanitizedUrl = navState.url.split('?')[0];
-            setActualUrl(sanitizedUrl);
-          }
-        }}
-        style={styles.webView}
-      />
+      {showOnlineCourse ? (
+        <OnlineCoursePage 
+          links={ONLINE_COURSE_LINKS} 
+          onLinkPress={handleOnlineCourseLinkPress}
+        />
+      ) : (
+        <WebView
+          key={currentUrl}
+          ref={webViewRef}
+          source={{ uri: currentUrl }}
+          startInLoadingState
+          onNavigationStateChange={navState => {
+            setCanGoBack(navState.canGoBack);
+            if (navState.url) {
+              const sanitizedUrl = navState.url.split('?')[0];
+              setActualUrl(sanitizedUrl);
+            }
+          }}
+          style={styles.webView}
+        />
+      )}
 
       <MenuBar
         items={MENU_ITEMS}
@@ -268,7 +331,7 @@ export default function AppRoot() {
         />
       )}
 
-      {isRootMenuUrl(actualUrl) && (
+      {isRootMenuUrl(actualUrl) && !showOnlineCourse && (
         <SocialWidget links={SOCIAL_LINKS} onPress={handleSocialPress} />
       )}
       <ToastMessage visible={toast.visible} message={toast.message} />
