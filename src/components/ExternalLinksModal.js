@@ -7,10 +7,17 @@ import {
   ScrollView,
 } from 'react-native';
 
-export default function ExternalLinksModal({ visible, links, onLinkPress, onClose }) {
+export default function ExternalLinksModal({ visible, links, governmentLinks, privateCompanyLinks, onLinkPress, onClose }) {
   if (!visible) {
     return null;
   }
+
+  // Use categorized links if provided, otherwise fall back to flat links array
+  const govLinks = governmentLinks || [];
+  const privateLinks = privateCompanyLinks || [];
+  const flatLinks = links || [];
+
+  const hasCategories = govLinks.length > 0 || privateLinks.length > 0;
 
   return (
     <TouchableWithoutFeedback onPress={onClose}>
@@ -23,16 +30,55 @@ export default function ExternalLinksModal({ visible, links, onLinkPress, onClos
               contentContainerStyle={styles.modalLinkScrollContent}
               showsVerticalScrollIndicator={false}
             >
-              {links.map(link => (
-                <TouchableOpacity
-                  key={link.label}
-                  style={styles.modalLinkButton}
-                  onPress={() => onLinkPress(link)}
-                >
-                  <Text style={styles.modalLinkLabel}>{link.label}</Text>
-                  <Text style={styles.modalLinkDescription}>{link.description}</Text>
-                </TouchableOpacity>
-              ))}
+              {hasCategories ? (
+                <>
+                  {govLinks.length > 0 && (
+                    <>
+                      <View style={styles.sectionHeaderWrapper}>
+                        <Text style={styles.sectionHeader}>Government Portals</Text>
+                      </View>
+                      {govLinks.map(link => (
+                        <TouchableOpacity
+                          key={link.label}
+                          style={styles.modalLinkButton}
+                          onPress={() => onLinkPress(link)}
+                        >
+                          <Text style={styles.modalLinkLabel}>{link.label}</Text>
+                          <Text style={styles.modalLinkDescription}>{link.description}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </>
+                  )}
+                  {privateLinks.length > 0 && (
+                    <>
+                      <View style={[styles.sectionHeaderWrapper, styles.privateSectionHeader]}>
+                        <Text style={styles.sectionHeader}>Private Job Portals</Text>
+                      </View>
+                      {privateLinks.map(link => (
+                        <TouchableOpacity
+                          key={link.label}
+                          style={styles.modalLinkButton}
+                          onPress={() => onLinkPress(link)}
+                        >
+                          <Text style={styles.modalLinkLabel}>{link.label}</Text>
+                          <Text style={styles.modalLinkDescription}>{link.description}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </>
+                  )}
+                </>
+              ) : (
+                flatLinks.map(link => (
+                  <TouchableOpacity
+                    key={link.label}
+                    style={styles.modalLinkButton}
+                    onPress={() => onLinkPress(link)}
+                  >
+                    <Text style={styles.modalLinkLabel}>{link.label}</Text>
+                    <Text style={styles.modalLinkDescription}>{link.description}</Text>
+                  </TouchableOpacity>
+                ))
+              )}
             </ScrollView>
             <TouchableOpacity style={styles.modalCloseButton} onPress={onClose}>
               <Text style={styles.modalCloseText}>Close</Text>
@@ -100,6 +146,26 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#4a4a4a',
     marginTop: 4,
+  },
+  sectionHeaderWrapper: {
+    backgroundColor: '#f0f7ff',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    marginTop: 0,
+    marginBottom: 6,
+    borderLeftWidth: 4,
+    borderLeftColor: '#1a3a5c',
+  },
+  privateSectionHeader: {
+    marginTop: 16,
+  },
+  sectionHeader: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#1a3a5c',
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
   },
   modalCloseButton: {
     marginTop: 8,

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-export default function ExternalLinksSheet({ visible, links, onLinkPress, onClose }) {
+export default function ExternalLinksSheet({ visible, links, governmentLinks, privateCompanyLinks, onLinkPress, onClose }) {
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -21,6 +21,13 @@ export default function ExternalLinksSheet({ visible, links, onLinkPress, onClos
     return null;
   }
 
+  // Use categorized links if provided, otherwise fall back to flat links array
+  const govLinks = governmentLinks || [];
+  const privateLinks = privateCompanyLinks || [];
+  const flatLinks = links || [];
+
+  const hasCategories = govLinks.length > 0 || privateLinks.length > 0;
+
   return (
     <Modalize
       ref={modalRef}
@@ -33,16 +40,55 @@ export default function ExternalLinksSheet({ visible, links, onLinkPress, onClos
     >
       <View style={styles.sheetContent}>
         <Text style={styles.sheetTitle}>External Links</Text>
-        {links.map(link => (
-          <TouchableOpacity
-            key={link.label}
-            style={styles.sheetButton}
-            onPress={() => onLinkPress(link)}
-          >
-            <Text style={styles.sheetButtonLabel}>{link.label}</Text>
-            <Text style={styles.sheetButtonDescription}>{link.description}</Text>
-          </TouchableOpacity>
-        ))}
+        {hasCategories ? (
+          <>
+            {govLinks.length > 0 && (
+              <>
+                <View style={styles.sectionHeaderWrapper}>
+                  <Text style={styles.sectionHeader}>Government Portals</Text>
+                </View>
+                {govLinks.map(link => (
+                  <TouchableOpacity
+                    key={link.label}
+                    style={styles.sheetButton}
+                    onPress={() => onLinkPress(link)}
+                  >
+                    <Text style={styles.sheetButtonLabel}>{link.label}</Text>
+                    <Text style={styles.sheetButtonDescription}>{link.description}</Text>
+                  </TouchableOpacity>
+                ))}
+              </>
+            )}
+            {privateLinks.length > 0 && (
+              <>
+                <View style={[styles.sectionHeaderWrapper, styles.privateSectionHeader]}>
+                  <Text style={styles.sectionHeader}>Private Job Portals</Text>
+                </View>
+                {privateLinks.map(link => (
+                  <TouchableOpacity
+                    key={link.label}
+                    style={styles.sheetButton}
+                    onPress={() => onLinkPress(link)}
+                  >
+                    <Text style={styles.sheetButtonLabel}>{link.label}</Text>
+                    <Text style={styles.sheetButtonDescription}>{link.description}</Text>
+                  </TouchableOpacity>
+                ))}
+              </>
+            )}
+          </>
+        ) : (
+          flatLinks.map(link => (
+            <TouchableOpacity
+              key={link.label}
+              style={styles.sheetButton}
+              onPress={() => onLinkPress(link)}
+            >
+              <Text style={styles.sheetButtonLabel}>{link.label}</Text>
+              <Text style={styles.sheetButtonDescription}>{link.description}</Text>
+            </TouchableOpacity>
+          ))
+        )}
       </View>
     </Modalize>
   );
@@ -89,6 +135,25 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#4e4e4e',
     marginTop: 2,
+  },
+  sectionHeaderWrapper: {
+    backgroundColor: '#f0f7ff',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    marginTop: 0,
+    marginBottom: 6,
+    borderLeftWidth: 4,
+    borderLeftColor: '#1a3a5c',
+  },
+  privateSectionHeader: {
+    marginTop: 16,
+  },
+  sectionHeader: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#1a3a5c',
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
   },
 });
 

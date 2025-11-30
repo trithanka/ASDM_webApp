@@ -37,15 +37,28 @@ export const ONLINE_COURSE_LINKS = [
   }
 ];
 
-export const EXTERNAL_LINKS = [
-
-  { label: 'Advancing North East Web Portal', description: 'Career and livelihood resources for North East youth', url: 'https://www.advancingnortheast.in/' },
+// Government job portals and official links
+export const GOVERNMENT_LINKS = [
   { label: 'Emp Exchange', description: 'Register to get Employment Exchange number in Assam', url: EXTERNAL_EMP_EXCHANGE_URL },
+  { label: 'Advancing North East Web Portal', description: 'Gateway to career growth in the Northeast. Explore, connect, and thrive with our curated job listings and resources.', url: 'https://www.advancingnortheast.in/' },
   { label: 'নিyukti', description: 'State recruitment listings', url: 'https://niyukti.assam.gov.in/' },
   { label: 'Assam Career', description: 'Jobs and recruitment updates in Assam', url: 'https://www.assamcareer.com/' },
-  { label: 'National Career Service Portal', description: 'Career and livelihood resources for North East youth', url: 'https://betacloud.ncs.gov.in/' },
-  { label: 'Naukri', description: 'National job opportunities portal', url: 'https://www.naukri.com/' },
+  { label: 'National Career Service Portal', description: 'Find the right talent faster, streamline hiring, and build your workforce with a platform designed for scale, efficiency, and success.', url: 'https://betacloud.ncs.gov.in/' },
 ];
+
+// Private company job portals
+export const PRIVATE_COMPANY_LINKS = [
+  { label: 'Naukri', description: 'India\'s leading job portal with millions of job opportunities', url: 'https://www.naukri.com/' },
+  { label: 'Indeed', description: 'Search millions of jobs from thousands of job boards', url: 'https://www.indeed.co.in/' },
+  { label: 'LinkedIn Jobs', description: 'Professional networking and job search platform', url: 'https://www.linkedin.com/jobs/' },
+  { label: 'Monster India', description: 'Find jobs, career advice and recruitment services', url: 'https://www.monsterindia.com/' },
+  { label: 'Shine.com', description: 'Job search portal with opportunities across industries', url: 'https://www.shine.com/' },
+  { label: 'TimesJobs', description: 'Job search and career opportunities', url: 'https://www.timesjobs.com/' },
+  { label: 'Freshersworld', description: 'Entry level jobs and fresher opportunities', url: 'https://www.freshersworld.com/' },
+];
+
+// Combined external links (for backward compatibility)
+export const EXTERNAL_LINKS = [...GOVERNMENT_LINKS, ...PRIVATE_COMPANY_LINKS];
 
 export const SOCIAL_LINKS = [
   // {

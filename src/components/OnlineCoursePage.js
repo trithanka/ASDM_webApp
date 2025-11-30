@@ -76,8 +76,10 @@ export default function OnlineCoursePage({ links, onLinkPress }) {
                 )}
               </View>
               <View style={styles.bannerContent}>
-                <Text style={styles.bannerTitle}>{link.label}</Text>
-                <Text style={styles.bannerDescription}>{link.description}</Text>
+                <View style={styles.bannerTextContainer}>
+                  <Text style={styles.bannerTitle} numberOfLines={1}>{link.label}</Text>
+                  <Text style={styles.bannerDescription} numberOfLines={2}>{link.description}</Text>
+                </View>
                 <View style={styles.bannerAction}>
                   <Text style={styles.bannerActionText}>Explore</Text>
                   <MaterialCommunityIcons name="arrow-right" size={18} color={ACTIVE_COLOR} />
@@ -181,6 +183,12 @@ const styles = StyleSheet.create({
     padding: 12,
     justifyContent: 'space-between',
     minHeight: 100,
+    overflow: 'hidden',
+  },
+  bannerTextContainer: {
+    flex: 1,
+    flexShrink: 1,
+    marginBottom: 8,
   },
   bannerTitle: {
     fontSize: 16,
@@ -193,13 +201,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#6b7280',
     lineHeight: 18,
-    marginBottom: 6,
   },
   bannerAction: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
     gap: 6,
+    flexShrink: 0,
   },
   bannerActionText: {
     fontSize: 14,

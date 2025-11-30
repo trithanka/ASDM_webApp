@@ -4,7 +4,7 @@
     "slug": "ASDM_webApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/adaptive-icon.png",
+    "icon": "./assets/logo-sm.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -21,10 +21,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo-sm.png",
         "backgroundColor": "#ffffff"
       },
-      "icon": "./assets/adaptive-icon.png",
+      "icon": "./assets/logo-sm.png",
       "edgeToEdgeEnabled": true,
       "package": "com.tritha.ASDM_webApp"
     },

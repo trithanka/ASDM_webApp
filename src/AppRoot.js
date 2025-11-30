@@ -16,6 +16,8 @@ import {
   BASE_URL,
   MENU_ITEMS,
   EXTERNAL_LINKS,
+  GOVERNMENT_LINKS,
+  PRIVATE_COMPANY_LINKS,
   SOCIAL_LINKS,
   JOBMELA_URL,
   ONLINE_COURSE_LINKS,
@@ -263,14 +265,16 @@ export default function AppRoot() {
         {Platform.OS === 'web' ? (
           <ExternalLinksModal
             visible={showExternalModal}
-            links={EXTERNAL_LINKS}
+            governmentLinks={GOVERNMENT_LINKS}
+            privateCompanyLinks={PRIVATE_COMPANY_LINKS}
             onLinkPress={handleExternalLinkPress}
             onClose={() => setShowExternalModal(false)}
           />
         ) : (
           <ExternalLinksSheet
             visible={showExternalModal}
-            links={EXTERNAL_LINKS}
+            governmentLinks={GOVERNMENT_LINKS}
+            privateCompanyLinks={PRIVATE_COMPANY_LINKS}
             onLinkPress={handleExternalLinkPress}
             onClose={() => setShowExternalModal(false)}
           />
@@ -318,14 +322,16 @@ export default function AppRoot() {
       {Platform.OS === 'web' ? (
         <ExternalLinksModal
           visible={showExternalModal}
-          links={EXTERNAL_LINKS}
+          governmentLinks={GOVERNMENT_LINKS}
+          privateCompanyLinks={PRIVATE_COMPANY_LINKS}
           onLinkPress={handleExternalLinkPress}
           onClose={() => setShowExternalModal(false)}
         />
       ) : (
         <ExternalLinksSheet
           visible={showExternalModal}
-          links={EXTERNAL_LINKS}
+          governmentLinks={GOVERNMENT_LINKS}
+          privateCompanyLinks={PRIVATE_COMPANY_LINKS}
           onLinkPress={handleExternalLinkPress}
           onClose={() => setShowExternalModal(false)}
         />
