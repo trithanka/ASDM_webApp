@@ -39,15 +39,18 @@ export const ONLINE_COURSE_LINKS = [
 
 // Government job portals and official links
 export const GOVERNMENT_LINKS = [
+
   { label: 'Emp Exchange', description: 'Register to get Employment Exchange number in Assam', url: EXTERNAL_EMP_EXCHANGE_URL },
+  { label: 'ITI Assam', description: 'Admission and eCounselling Services', url: 'https://itiassam.admissions.nic.in/program/' },
   { label: 'Advancing North East Web Portal', description: 'Gateway to career growth in the Northeast. Explore, connect, and thrive with our curated job listings and resources.', url: 'https://www.advancingnortheast.in/' },
   { label: 'নিyukti', description: 'State recruitment listings', url: 'https://niyukti.assam.gov.in/' },
-  { label: 'Assam Career', description: 'Jobs and recruitment updates in Assam', url: 'https://www.assamcareer.com/' },
+  { label: 'Assam Government Jobs', description: 'Assam Government Jobs', url: 'https://job.assam.gov.in/' },
   { label: 'National Career Service Portal', description: 'Find the right talent faster, streamline hiring, and build your workforce with a platform designed for scale, efficiency, and success.', url: 'https://betacloud.ncs.gov.in/' },
 ];
 
 // Private company job portals
 export const PRIVATE_COMPANY_LINKS = [
+  { label: 'Assam Career', description: 'Jobs and recruitment updates in Assam', url: 'https://www.assamcareer.com/' },
   { label: 'Naukri', description: 'India\'s leading job portal with millions of job opportunities', url: 'https://www.naukri.com/' },
   { label: 'Indeed', description: 'Search millions of jobs from thousands of job boards', url: 'https://www.indeed.co.in/' },
   { label: 'LinkedIn Jobs', description: 'Professional networking and job search platform', url: 'https://www.linkedin.com/jobs/' },
