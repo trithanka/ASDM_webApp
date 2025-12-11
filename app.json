@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ASDM Pratibha",
+    "name": "Skill Setu",
     "slug": "ASDM_webApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo-sm.png",
+        "foregroundImage": "./assets/logo_new/android/mipmap-xxxhdpi/ic_launcher_foreground.png",
         "backgroundColor": "#ffffff"
       },
-      "icon": "./assets/logo-sm.png",
+      "icon": "./assets/logo_new/android/mipmap-xxxhdpi/ic_launcher.png",
       "edgeToEdgeEnabled": true,
       "package": "com.tritha.ASDM_webApp"
     },

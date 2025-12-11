@@ -13,12 +13,12 @@ export default function SplashScreen() {
         <View style={styles.horizontalLine} />
         {Platform.OS === 'web' ? (
           <Text style={[styles.prativaText, { fontFamily: '"Lexend Giga", sans-serif' }]}>
-            ASDM Pratibha
+            ASDM Skill Setu
           </Text>
         ) : (
           <>
             <Text style={styles.asdmText}>Assam Skill Development Mission</Text>
-            <Text style={styles.prativaText}>Pratibha</Text>
+            <Text style={styles.prativaText}>Skill Setu</Text>
           </>
         )}
       </View>
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginVertical: 50,
   },
   prativaText: {
-    fontSize: 48,
+    fontSize: 40,
     fontWeight: '700',
     color: '#364153',
     textAlign: 'center',

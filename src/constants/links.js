@@ -24,16 +24,46 @@ export const ONLINE_COURSE_LINKS = [
     image: 'https://www.ibef.org/uploads/govtschemes/skill-India-july-2025.png'
   },
   { 
-    label: 'NIIT Foundation Digital SKILLS', 
-    description: 'Land your dream job and safeguard your future !', 
-    url: 'https://niitfoundation.org/skilling_program/',
-    image: 'https://niitfoundation.org/wp-content/uploads/2023/10/niitfoundatinLogonew.png'
+    label: 'Skill India Digital Job Exchange', 
+    description: 'Explore Skill India Digital Sector Skill Courses', 
+    url: 'https://www.skillindiadigital.gov.in/opportunities',
+    image: 'https://www.ibef.org/uploads/govtschemes/skill-India-july-2025.png'
+  },
+  // { 
+  //   label: 'NIIT Foundation Digital SKILLS', 
+  //   description: 'Land your dream job and safeguard your future !', 
+  //   url: 'https://niitfoundation.org/skilling_program/',
+  //   image: 'https://niitfoundation.org/wp-content/uploads/2023/10/niitfoundatinLogonew.png'
+  // },
+  // { 
+  //   label: 'Wadhani Foundation', 
+  //   description: 'Curated collection of courses to help you gain skills to break into a new career or advance your current career', 
+  //   url: 'https://wadhwanifoundation.org/',
+  //   image: 'https://asdm.assam.gov.in/sites/default/files/styles/76x84/public/swf_utility_folder/departments/egm_labour_uneecopscloud_com_oid_15/slider/580-01.png?itok=MRP2D1Qt'
+  // }
+  { 
+    label: 'Diksha', 
+    description: 'A national platform for school education, Offering digital learning resources for teachers and students.', 
+    url: 'https://diksha.gov.in/index.html',
+    image: 'https://obj.diksha.gov.in/ntp-content-production/homepage/prod/assets/homepage/logo-img.png'
   },
   { 
-    label: 'Wadhani Foundation', 
-    description: 'Curated collection of courses to help you gain skills to break into a new career or advance your current career', 
-    url: 'https://wadhwanifoundation.org/',
-    image: 'https://asdm.assam.gov.in/sites/default/files/styles/76x84/public/swf_utility_folder/departments/egm_labour_uneecopscloud_com_oid_15/slider/580-01.png?itok=MRP2D1Qt'
+    label: 'Swayam', 
+    description: 'Indian Massive open online course (MOOC) platform', 
+    url: 'https://onlinecourses.nptel.ac.in/',
+    image: 'https://storage.googleapis.com/swayam2-node/assets/img/swayam_images/swayam_logo.png'
+  },
+  { 
+    label: 'PM e-Vidya', 
+    description: 'PMEVidya is a unifies all efforts related to digital/online/on-air education to enable multi-mode access to education.', 
+    url: 'https://pmevidya.education.gov.in/',
+    image: 'https://imgs.search.brave.com/qFXjA0tZ_Gf2tZz2IRYEWuhLTBr7SaTprdWzJHxfRQU/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly92YWpp/cmFtYW5kcmF2aS5j/b20vY3VycmVudC1h/ZmZhaXJzL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDI1LzA0L3Bt/X2VfdmlkeWEud2Vi/cA'
+  },
+  { 
+    label: 'NPTEL', 
+    description: 'NPTEL is a largest online repository in the world of courses in engineering, basic sciences, and selected humanities and social sciences subjects', 
+    url: 'https://nptel.ac.in/courses',
+    image: 'https://imgs.search.brave.com/jCG6Y8I3mzcX9Z9yHzzVwvaeEePLaOng-2SAMzXOWlw/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly93d3cu/aWxjZS5pbi93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMi8wNi9u/cHRlbC1iYW5uZXIu/anBn'
   }
 ];
 
